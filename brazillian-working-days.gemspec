@@ -14,7 +14,7 @@ Gem::Specification.new do |specification|
   specification.license               = 'MIT'
 
   # Dependencies
-  specification.add_dependency 'activesupport', '~> 4.2', '>= 4.2.6'
-  specification.add_dependency 'httparty', '~> 0.13.7'
-  specification.add_dependency 'json', '~> 1.8', '>= 1.8.3'
+  specification.add_dependency 'activesupport'
+  specification.add_dependency 'httparty'
+  specification.add_dependency 'json'
 end
