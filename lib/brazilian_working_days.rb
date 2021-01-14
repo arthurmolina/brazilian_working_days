@@ -18,16 +18,16 @@ class BrazilianWorkingDays
   ##
   # Count business days between two dates
   #
-  def business_days_counter(to, from = Date.today)
+  def business_days_counter(from = Date.today, to)
     return nil if to.blank? || from.blank?
 
-    (to - from).to_i - holidays_counter(to, from, only_weekdays: true) - weekend_days_counter(to, from)
+    (to - from).to_i - holidays_counter(from, to, only_weekdays: true) - weekend_days_counter(from, to)
   end
 
   ##
   # Count holidays between two dates
   #
-  def holidays_counter(to, from = Date.today, only_weekdays: false)
+  def holidays_counter(from = Date.today, to, only_weekdays: false)
     return nil if to.blank? || from.blank?
 
     counter = 0
@@ -48,12 +48,12 @@ class BrazilianWorkingDays
   ##
   # Count weekend days between two dates
   #
-  def weekend_days_counter(to, from = Date.today)
+  def weekend_days_counter(from = Date.today, to)
     return nil if to.blank? || from.blank?
 
     totals_days = (to - from).to_i
     days1 = (2 * (totals_days / 7).ceil).to_i
-    days2 = ((from + (totals_days - (totals_days % 7)).days)..to).map { |date| (1..5).cover?(date.wday) }.count(false)
+    days2 = ((from + 1 + (totals_days - (totals_days % 7)).days)..to).map { |date| (1..5).cover?(date.wday) }.count(false)
     days1 + days2
   end
 
@@ -61,6 +61,7 @@ class BrazilianWorkingDays
 
   ##
   # Get all brazilian holidays beetween 2001 and actual year
+  #
   def get_holidays
     begin
       parsed_json = JSON.parse(File.open("#{__dir__}/data/json/holidays.json").read)
