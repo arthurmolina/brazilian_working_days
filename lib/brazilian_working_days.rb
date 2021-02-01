@@ -13,7 +13,7 @@ class BrazilianWorkingDays
   attr_accessor :holidays
 
   def initialize
-    @holidays = get_holidays
+    @holidays = JSON.parse(File.open("#{__dir__}/data/json/holidays.json").read)
   end
 
   ##
@@ -93,24 +93,5 @@ class BrazilianWorkingDays
     return false if date.blank?
 
     holidays[date.year.to_s].include?(date.strftime('%d/%m/%Y'))
-  end
-
-  private
-
-  ##
-  # Get all brazilian holidays beetween 2001 and actual year
-  #
-  def get_holidays
-    begin
-      parsed_json = JSON.parse(File.open("#{__dir__}/data/json/holidays.json").read)
-      if parsed_json.blank? || !parsed_json.keys.include?(Time.now.year.to_s)
-        system("ruby #{__dir__}/data/create_json.rb")
-        parsed_json = JSON.parse(File.open("#{__dir__}/data/json/holidays.json").read)
-      end
-      parsed_json
-    rescue StandardError
-      system("ruby #{__dir__}/data/create_json.rb")
-      JSON.parse(File.open("#{__dir__}/data/json/holidays.json").read)
-    end
   end
 end
