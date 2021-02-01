@@ -3,7 +3,7 @@
 Gem::Specification.new do |specification|
   specification.required_ruby_version = '>= 2.4'
   specification.name                  = 'brazilian_working_days'
-  specification.version               = '0.0.4'
+  specification.version               = '0.0.5'
   specification.date                  = '2021-02-01'
   specification.summary               = 'Brazilian Working Days'
   specification.description           = 'A simple gem to count business days'

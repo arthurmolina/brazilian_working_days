@@ -4,7 +4,6 @@ require 'json'
 require 'date'
 require 'active_support'
 require 'active_support/time'
-require 'pry'
 
 ##
 # Brazilian Working Days main functions
